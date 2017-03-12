@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 
-using Newtonsoft.Json;
+using Sharpcon.WebSockets;
+using Sharpcon.Interface;
 
 namespace Sharpcon
 {
@@ -29,6 +30,7 @@ namespace Sharpcon
             settings = Settings.Read();
             status = toolStripStatusLabelRight;
             console = richTextBoxConsole;
+
             textBoxAddress.Text = settings.ServerAddress;
             textBoxPort.Text = settings.ServerPort;
             textBoxPassword.Text = settings.ServerPassword;
@@ -61,7 +63,7 @@ namespace Sharpcon
         /// <param name="e"></param>
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            WebSockets.Connect();
+            WebSocketsWrapper.Connect();
         }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace Sharpcon
         /// <param name="e"></param>
         private void buttonDisconnect_Click(object sender, EventArgs e)
         {
-            WebSockets.Disconnect();
+            WebSocketsWrapper.Disconnect();
         }
 
         /// <summary>
@@ -81,7 +83,7 @@ namespace Sharpcon
         /// <param name="e"></param>
         private void buttonCommand_Click(object sender, EventArgs e)
         {
-            WebSockets.Send(JsonConvert.SerializeObject(new Packet(textBoxCommand.Text)));
+            WebSocketsWrapper.Send(textBoxCommand.Text);
         }
 
         /// <summary>
@@ -91,7 +93,39 @@ namespace Sharpcon
         /// <param name="e"></param>
         private void buttonBroadcast_Click(object sender, EventArgs e)
         {
-            WebSockets.Send(JsonConvert.SerializeObject(new Packet($"say {textBoxBroadcast.Text}")));
+            WebSocketsWrapper.Send($"say {textBoxBroadcast.Text}");
+        }
+
+        /// <summary>
+        /// Called when a key is pressed in the command box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxCommand_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((ConsoleKey)e.KeyChar == ConsoleKey.Enter)
+                WebSocketsWrapper.Send(textBoxCommand.Text);
+        }
+
+        /// <summary>
+        /// Called when a key is pressed in the broadcast box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxBroadcast_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((ConsoleKey)e.KeyChar == ConsoleKey.Enter)
+                WebSocketsWrapper.Send($"say {textBoxBroadcast.Text}");
+        }
+
+        /// <summary>
+        /// Called when the "Clear" button is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            Interface.Console.Clear();
         }
     }
 }

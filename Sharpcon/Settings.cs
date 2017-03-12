@@ -7,7 +7,7 @@ namespace Sharpcon
 {
     public class Settings
     {
-        public static readonly string FilePath = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
+        private static readonly string FilePath = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
 
         [JsonProperty("ServerAddress")]
         public string ServerAddress { get; set; }
@@ -41,6 +41,7 @@ namespace Sharpcon
                 File.Create(FilePath).Close();
 
             File.WriteAllText(FilePath, JsonConvert.SerializeObject(settings, Formatting.Indented));
+            MessageBox.Show("Saved settings.", "Sharpcon", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>

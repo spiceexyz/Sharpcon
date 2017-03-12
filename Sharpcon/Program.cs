@@ -26,7 +26,7 @@ namespace Sharpcon
         /// <returns></returns>
         private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            var assembly = $"{Assembly.GetExecutingAssembly().GetName().Name}.{new AssemblyName(args.Name).Name}.dll";
+            var assembly = $"{Assembly.GetExecutingAssembly().GetName().Name}.Dependencies.{new AssemblyName(args.Name).Name}.dll";
 
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(assembly))
             {

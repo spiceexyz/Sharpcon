@@ -55,6 +55,7 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelLeft = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelRight = new System.Windows.Forms.ToolStripStatusLabel();
+            this.buttonClear = new System.Windows.Forms.Button();
             this.tabPageHome.SuspendLayout();
             this.groupBoxConnection.SuspendLayout();
             this.groupBoxCredentials.SuspendLayout();
@@ -71,7 +72,7 @@
             this.tabPageHome.Location = new System.Drawing.Point(4, 22);
             this.tabPageHome.Name = "tabPageHome";
             this.tabPageHome.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHome.Size = new System.Drawing.Size(953, 360);
+            this.tabPageHome.Size = new System.Drawing.Size(734, 360);
             this.tabPageHome.TabIndex = 0;
             this.tabPageHome.Text = "Home";
             this.tabPageHome.UseVisualStyleBackColor = true;
@@ -117,7 +118,7 @@
             this.groupBoxCredentials.Controls.Add(this.textBoxPassword);
             this.groupBoxCredentials.Controls.Add(this.textBoxPort);
             this.groupBoxCredentials.Controls.Add(this.textBoxAddress);
-            this.groupBoxCredentials.Location = new System.Drawing.Point(356, 6);
+            this.groupBoxCredentials.Location = new System.Drawing.Point(6, 85);
             this.groupBoxCredentials.Name = "groupBoxCredentials";
             this.groupBoxCredentials.Size = new System.Drawing.Size(344, 158);
             this.groupBoxCredentials.TabIndex = 0;
@@ -204,7 +205,7 @@
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(961, 386);
+            this.tabControl.Size = new System.Drawing.Size(742, 386);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageConsole
@@ -213,7 +214,7 @@
             this.tabPageConsole.Location = new System.Drawing.Point(4, 22);
             this.tabPageConsole.Name = "tabPageConsole";
             this.tabPageConsole.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConsole.Size = new System.Drawing.Size(953, 360);
+            this.tabPageConsole.Size = new System.Drawing.Size(734, 360);
             this.tabPageConsole.TabIndex = 1;
             this.tabPageConsole.Text = "Console";
             this.tabPageConsole.UseVisualStyleBackColor = true;
@@ -223,6 +224,7 @@
             this.groupBoxConsole.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxConsole.Controls.Add(this.buttonClear);
             this.groupBoxConsole.Controls.Add(this.buttonBroadcast);
             this.groupBoxConsole.Controls.Add(this.buttonCommand);
             this.groupBoxConsole.Controls.Add(this.labelBroadcast);
@@ -232,7 +234,7 @@
             this.groupBoxConsole.Controls.Add(this.richTextBoxConsole);
             this.groupBoxConsole.Location = new System.Drawing.Point(6, 6);
             this.groupBoxConsole.Name = "groupBoxConsole";
-            this.groupBoxConsole.Size = new System.Drawing.Size(941, 349);
+            this.groupBoxConsole.Size = new System.Drawing.Size(722, 349);
             this.groupBoxConsole.TabIndex = 0;
             this.groupBoxConsole.TabStop = false;
             this.groupBoxConsole.Text = "Console";
@@ -240,9 +242,9 @@
             // buttonBroadcast
             // 
             this.buttonBroadcast.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBroadcast.Location = new System.Drawing.Point(666, 320);
+            this.buttonBroadcast.Location = new System.Drawing.Point(442, 320);
             this.buttonBroadcast.Name = "buttonBroadcast";
-            this.buttonBroadcast.Size = new System.Drawing.Size(269, 23);
+            this.buttonBroadcast.Size = new System.Drawing.Size(189, 23);
             this.buttonBroadcast.TabIndex = 6;
             this.buttonBroadcast.Text = "Send";
             this.buttonBroadcast.UseVisualStyleBackColor = true;
@@ -251,9 +253,9 @@
             // buttonCommand
             // 
             this.buttonCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCommand.Location = new System.Drawing.Point(666, 294);
+            this.buttonCommand.Location = new System.Drawing.Point(442, 294);
             this.buttonCommand.Name = "buttonCommand";
-            this.buttonCommand.Size = new System.Drawing.Size(269, 23);
+            this.buttonCommand.Size = new System.Drawing.Size(189, 23);
             this.buttonCommand.TabIndex = 5;
             this.buttonCommand.Text = "Send";
             this.buttonCommand.UseVisualStyleBackColor = true;
@@ -276,8 +278,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxBroadcast.Location = new System.Drawing.Point(101, 322);
             this.textBoxBroadcast.Name = "textBoxBroadcast";
-            this.textBoxBroadcast.Size = new System.Drawing.Size(559, 20);
+            this.textBoxBroadcast.Size = new System.Drawing.Size(335, 20);
             this.textBoxBroadcast.TabIndex = 3;
+            this.textBoxBroadcast.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBroadcast_KeyPress);
             // 
             // labelCommand
             // 
@@ -296,18 +299,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCommand.Location = new System.Drawing.Point(101, 296);
             this.textBoxCommand.Name = "textBoxCommand";
-            this.textBoxCommand.Size = new System.Drawing.Size(559, 20);
+            this.textBoxCommand.Size = new System.Drawing.Size(335, 20);
             this.textBoxCommand.TabIndex = 1;
+            this.textBoxCommand.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxCommand_KeyPress);
             // 
             // richTextBoxConsole
             // 
             this.richTextBoxConsole.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxConsole.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBoxConsole.Location = new System.Drawing.Point(6, 19);
             this.richTextBoxConsole.Name = "richTextBoxConsole";
             this.richTextBoxConsole.ReadOnly = true;
-            this.richTextBoxConsole.Size = new System.Drawing.Size(929, 269);
+            this.richTextBoxConsole.Size = new System.Drawing.Size(710, 269);
             this.richTextBoxConsole.TabIndex = 0;
             this.richTextBoxConsole.Text = "";
             // 
@@ -318,7 +323,7 @@
             this.toolStripStatusLabelRight});
             this.statusStrip.Location = new System.Drawing.Point(0, 410);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(985, 22);
+            this.statusStrip.Size = new System.Drawing.Size(766, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -334,11 +339,22 @@
             this.toolStripStatusLabelRight.Size = new System.Drawing.Size(26, 17);
             this.toolStripStatusLabelRight.Text = "Idle";
             // 
+            // buttonClear
+            // 
+            this.buttonClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClear.Location = new System.Drawing.Point(637, 294);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(79, 49);
+            this.buttonClear.TabIndex = 7;
+            this.buttonClear.Text = "Clear";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(985, 432);
+            this.ClientSize = new System.Drawing.Size(766, 432);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.tabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -387,6 +403,7 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelLeft;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelRight;
+        private System.Windows.Forms.Button buttonClear;
     }
 }
 
