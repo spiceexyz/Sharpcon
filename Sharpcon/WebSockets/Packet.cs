@@ -19,7 +19,7 @@ namespace Sharpcon.WebSockets
         /// <param name="message"></param>
         /// <param name="identifier"></param>
         /// <param name="name"></param>
-        public Packet(string message, int identifier = 1, string name = "Sharpcon")
+        public Packet(string message, int identifier, string name = "Sharpcon")
         {
             Identifier = identifier;
             Message = message;

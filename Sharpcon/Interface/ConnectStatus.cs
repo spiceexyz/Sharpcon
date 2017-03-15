@@ -8,7 +8,7 @@
         /// <param name="text"></param>
         public static void SetText(string text)
         {
-            Form1.status.Text = text;
+            Form1.Status.Text = text;
         }
     }
 }
