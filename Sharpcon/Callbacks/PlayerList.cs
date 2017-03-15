@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using Sharpcon.Interface;
 using Sharpcon.WebSockets.CustomPackets;
 
-namespace Sharpcon.CommandProcessing
+namespace Sharpcon.Callbacks
 {
     public static class PlayerList
     {
