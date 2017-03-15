@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sharpcon.WebSockets;
-
-namespace Sharpcon.Interface
+﻿namespace Sharpcon.Interface
 {
     public static class ConnectStatus
     {
