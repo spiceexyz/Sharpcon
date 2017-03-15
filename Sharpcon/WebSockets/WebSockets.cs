@@ -1,16 +1,19 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 using Newtonsoft.Json;
 
 using WebSocketSharp;
 
 using Sharpcon.Interface;
+using Sharpcon.Threading;
 
 namespace Sharpcon.WebSockets
 {
     public static class WebSocketsWrapper
     {
         private static WebSocket webSocket;
+        private static Random random;
 
         /// <summary>
         /// Connects the websocket while attaching the event handlers
@@ -66,6 +69,32 @@ namespace Sharpcon.WebSockets
         }
 
         /// <summary>
+        /// Sends a command to the server, while setting up the callback
+        /// </summary>
+        public static void SendCommand(string command)
+        {
+            var identifier = 1;
+
+            if (Listener.NeedListener.Contains(command))
+            {
+                if (random == null)
+                    random = new Random(DateTime.Now.Millisecond);
+
+                identifier = random.Next(0, int.MaxValue);
+
+                if (Listener.Listeners.ContainsKey(identifier))
+                {
+                    MessageBox.Show("Duplicate identifier found!", "Sharpcon", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                Listener.Listeners.Add(identifier, command);
+            }
+
+            Send(command, identifier);
+        }
+
+        /// <summary>
         /// Checks to see if the websocket is connected or not
         /// </summary>
         /// <returns></returns>
@@ -82,10 +111,11 @@ namespace Sharpcon.WebSockets
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void WebSocket_OnOpen(object sender, System.EventArgs e)
+        private static void WebSocket_OnOpen(object sender, EventArgs e)
         {
             ConnectStatus.SetText("Connected");
             ServerConsole.Enable();
+            Update.StartThreads();
         }
 
         /// <summary>
@@ -107,7 +137,7 @@ namespace Sharpcon.WebSockets
             if (packet.Identifier == -1 || string.IsNullOrEmpty(packet.Message))
                 return;
 
-            ServerConsole.AddNewEntry($"{packet.Identifier} :: {packet.Message}");
+            ServerConsole.AddNewEntry(packet.Message);
         }
 
         /// <summary>
@@ -129,6 +159,8 @@ namespace Sharpcon.WebSockets
         {
             ConnectStatus.SetText("Disconnected");
             ServerConsole.Disable();
+            PlayerCounter.Reset();
+            Update.StopThreads();
         }
     }
 }

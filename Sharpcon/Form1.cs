@@ -96,7 +96,7 @@ namespace Sharpcon
         /// <param name="e"></param>
         private void buttonCommand_Click(object sender, EventArgs e)
         {
-            SendCommand();
+            WebSocketsWrapper.SendCommand(textBoxCommand.Text);
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Sharpcon
         private void textBoxCommand_KeyPress(object sender, KeyPressEventArgs e)
         {
             if ((ConsoleKey)e.KeyChar == ConsoleKey.Enter)
-                SendCommand();
+                WebSocketsWrapper.SendCommand(textBoxCommand.Text);
         }
 
         /// <summary>
@@ -139,30 +139,6 @@ namespace Sharpcon
         private void buttonClear_Click(object sender, EventArgs e)
         {
             ServerConsole.Clear();
-        }
-
-        /// <summary>
-        /// Sends a command to the server, while setting up the callback
-        /// </summary>
-        private void SendCommand()
-        {
-            var command = textBoxCommand.Text;
-            var identifier = 1;
-
-            if (Listener.NeedListener.Contains(command))
-            {
-                identifier = new Random(DateTime.Now.Millisecond).Next(0, int.MaxValue);
-
-                if (Listener.Listeners.ContainsKey(identifier))
-                {
-                    MessageBox.Show("Duplicate identifier found!", "Sharpcon", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                Listener.Listeners.Add(identifier, command);
-            }
-
-            WebSocketsWrapper.Send(textBoxCommand.Text, identifier);
         }
     }
 }
