@@ -53,6 +53,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandProcessing\PlayerList.cs" />
+    <Compile Include="Interface\PlayerCounter.cs" />
+    <Compile Include="Interface\PlayerDataTable.cs" />
     <Compile Include="Interface\ServerConsole.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -62,6 +65,7 @@
     </Compile>
     <Compile Include="Interface\ConnectStatus.cs" />
     <Compile Include="WebSockets\CustomPackets\Player.cs" />
+    <Compile Include="WebSockets\Listener.cs" />
     <Compile Include="WebSockets\Packet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

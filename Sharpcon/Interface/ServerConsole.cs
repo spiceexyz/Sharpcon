@@ -10,7 +10,7 @@ namespace Sharpcon.Interface
         /// <param name="text"></param>
         public static void AddNewEntry(string text)
         {
-            Form1.console.AppendText($"[{DateTime.Now.ToShortTimeString()}] {text}\r\n");
+            Form1.Console.AppendText($"[{DateTime.Now.ToShortTimeString()}] {text}\r\n");
         }
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace Sharpcon.Interface
         /// </summary>
         public static void Clear()
         {
-            Form1.console.Clear();
+            Form1.Console.Clear();
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Sharpcon.Interface
         /// </summary>
         public static void Disable()
         {
-            Form1.console.Enabled = false;
+            Form1.Console.Enabled = false;
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Sharpcon.Interface
         /// </summary>
         public static void Enable()
         {
-            Form1.console.Enabled = true;
+            Form1.Console.Enabled = true;
         }
     }
 }

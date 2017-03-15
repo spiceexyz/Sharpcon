@@ -54,13 +54,19 @@
             this.textBoxCommand = new System.Windows.Forms.TextBox();
             this.richTextBoxConsole = new System.Windows.Forms.RichTextBox();
             this.tabPagePlayers = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewPlayers = new System.Windows.Forms.DataGridView();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelLeft = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelRight = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelSeparator = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelPlayers = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelCounter = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SteamId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlayerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ping = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TimeConnected = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageHome.SuspendLayout();
             this.groupBoxConnection.SuspendLayout();
             this.groupBoxCredentials.SuspendLayout();
@@ -68,7 +74,7 @@
             this.tabPageConsole.SuspendLayout();
             this.groupBoxConsole.SuspendLayout();
             this.tabPagePlayers.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPlayers)).BeginInit();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -337,7 +343,7 @@
             // 
             // tabPagePlayers
             // 
-            this.tabPagePlayers.Controls.Add(this.dataGridView1);
+            this.tabPagePlayers.Controls.Add(this.dataGridViewPlayers);
             this.tabPagePlayers.Location = new System.Drawing.Point(4, 22);
             this.tabPagePlayers.Name = "tabPagePlayers";
             this.tabPagePlayers.Padding = new System.Windows.Forms.Padding(3);
@@ -346,23 +352,32 @@
             this.tabPagePlayers.Text = "Players";
             this.tabPagePlayers.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dataGridViewPlayers
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewPlayers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewPlayers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPlayers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Number,
             this.SteamId,
+            this.PlayerName,
             this.Address,
-            this.Ping});
-            this.dataGridView1.Location = new System.Drawing.Point(6, 6);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(722, 348);
-            this.dataGridView1.TabIndex = 0;
+            this.Ping,
+            this.TimeConnected});
+            this.dataGridViewPlayers.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewPlayers.Name = "dataGridViewPlayers";
+            this.dataGridViewPlayers.Size = new System.Drawing.Size(722, 348);
+            this.dataGridViewPlayers.TabIndex = 0;
             // 
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelLeft,
-            this.toolStripStatusLabelRight});
+            this.toolStripStatusLabelRight,
+            this.toolStripStatusLabelSeparator,
+            this.toolStripStatusLabelPlayers,
+            this.toolStripStatusLabelCounter});
             this.statusStrip.Location = new System.Drawing.Point(0, 410);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(766, 22);
@@ -381,23 +396,64 @@
             this.toolStripStatusLabelRight.Size = new System.Drawing.Size(26, 17);
             this.toolStripStatusLabelRight.Text = "Idle";
             // 
+            // toolStripStatusLabelSeparator
+            // 
+            this.toolStripStatusLabelSeparator.Name = "toolStripStatusLabelSeparator";
+            this.toolStripStatusLabelSeparator.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabelSeparator.Text = "|";
+            // 
+            // toolStripStatusLabelPlayers
+            // 
+            this.toolStripStatusLabelPlayers.Name = "toolStripStatusLabelPlayers";
+            this.toolStripStatusLabelPlayers.Size = new System.Drawing.Size(47, 17);
+            this.toolStripStatusLabelPlayers.Text = "Players:";
+            // 
+            // toolStripStatusLabelCounter
+            // 
+            this.toolStripStatusLabelCounter.Name = "toolStripStatusLabelCounter";
+            this.toolStripStatusLabelCounter.Size = new System.Drawing.Size(13, 17);
+            this.toolStripStatusLabelCounter.Text = "0";
+            // 
+            // Number
+            // 
+            this.Number.HeaderText = "Number";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            this.Number.Width = 50;
+            // 
             // SteamId
             // 
             this.SteamId.HeaderText = "SteamId";
             this.SteamId.Name = "SteamId";
             this.SteamId.ReadOnly = true;
+            this.SteamId.Width = 175;
+            // 
+            // PlayerName
+            // 
+            this.PlayerName.HeaderText = "PlayerName";
+            this.PlayerName.Name = "PlayerName";
+            this.PlayerName.ReadOnly = true;
+            this.PlayerName.Width = 175;
             // 
             // Address
             // 
             this.Address.HeaderText = "Address";
             this.Address.Name = "Address";
             this.Address.ReadOnly = true;
+            this.Address.Width = 150;
             // 
             // Ping
             // 
             this.Ping.HeaderText = "Ping";
             this.Ping.Name = "Ping";
             this.Ping.ReadOnly = true;
+            this.Ping.Width = 50;
+            // 
+            // TimeConnected
+            // 
+            this.TimeConnected.HeaderText = "TimeConnected";
+            this.TimeConnected.Name = "TimeConnected";
+            this.TimeConnected.ReadOnly = true;
             // 
             // Form1
             // 
@@ -409,6 +465,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Sharpcon";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabPageHome.ResumeLayout(false);
             this.groupBoxConnection.ResumeLayout(false);
@@ -419,7 +476,7 @@
             this.groupBoxConsole.ResumeLayout(false);
             this.groupBoxConsole.PerformLayout();
             this.tabPagePlayers.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPlayers)).EndInit();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -456,10 +513,16 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelRight;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.TabPage tabPagePlayers;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewPlayers;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelPlayers;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelCounter;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSeparator;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
         private System.Windows.Forms.DataGridViewTextBoxColumn SteamId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlayerName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
         private System.Windows.Forms.DataGridViewTextBoxColumn Ping;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TimeConnected;
     }
 }
 

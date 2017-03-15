@@ -24,7 +24,7 @@ namespace Sharpcon.WebSockets
             }
 
             ConnectStatus.SetText("Connecting...");
-            webSocket = new WebSocket($"ws://{Form1.settings.ServerAddress}:{Form1.settings.ServerPort}/{Form1.settings.ServerPassword}");
+            webSocket = new WebSocket($"ws://{Form1.Settings.ServerAddress}:{Form1.Settings.ServerPort}/{Form1.Settings.ServerPassword}");
             webSocket.OnOpen += WebSocket_OnOpen;
             webSocket.OnMessage += WebSocket_OnMessage;
             webSocket.OnError += WebSocket_OnError;
@@ -48,10 +48,10 @@ namespace Sharpcon.WebSockets
         }
 
         /// <summary>
-        /// Sends a packet
+        /// Sends a packet with the specified message and identifier
         /// </summary>
         /// <param name="packet"></param>
-        public static void Send(string message)
+        public static void Send(string message, int identifier = 1)
         {
             if (!IsConnected())
             {
@@ -59,7 +59,7 @@ namespace Sharpcon.WebSockets
                 return;
             }
 
-            var packetObj = new Packet(message);
+            var packetObj = new Packet(message, identifier);
             var packetStr = JsonConvert.SerializeObject(packetObj);
             webSocket.SendAsync(packetStr, null);
             ServerConsole.AddNewEntry($"> {packetObj.Message}");
@@ -97,10 +97,17 @@ namespace Sharpcon.WebSockets
         {
             var packet = JsonConvert.DeserializeObject<Packet>(e.Data);
 
+            // If this is a return from something called earlier, process it.
+            if (Listener.Listeners.ContainsKey(packet.Identifier))
+            {
+                Listener.ProcessMessage(packet);
+                return;
+            }
+
             if (packet.Identifier == -1 || string.IsNullOrEmpty(packet.Message))
                 return;
 
-            ServerConsole.AddNewEntry(packet.Message);
+            ServerConsole.AddNewEntry($"{packet.Identifier} :: {packet.Message}");
         }
 
         /// <summary>
