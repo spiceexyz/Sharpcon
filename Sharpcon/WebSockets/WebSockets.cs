@@ -23,9 +23,12 @@ namespace Sharpcon.WebSockets
                 return;
             }
 
+            ConnectStatus.SetText("Connecting...");
             webSocket = new WebSocket($"ws://{Form1.settings.ServerAddress}:{Form1.settings.ServerPort}/{Form1.settings.ServerPassword}");
+            webSocket.OnOpen += WebSocket_OnOpen;
             webSocket.OnMessage += WebSocket_OnMessage;
             webSocket.OnError += WebSocket_OnError;
+            webSocket.OnClose += WebSocket_OnClose;
             webSocket.ConnectAsync();
         }
 
@@ -40,6 +43,7 @@ namespace Sharpcon.WebSockets
                 return;
             }
 
+            ConnectStatus.SetText("Disconnecting...");
             webSocket.CloseAsync();
         }
 
@@ -58,7 +62,7 @@ namespace Sharpcon.WebSockets
             var packetObj = new Packet(message);
             var packetStr = JsonConvert.SerializeObject(packetObj);
             webSocket.SendAsync(packetStr, null);
-            Console.AddNewEntry($"> {packetObj.Message}");
+            ServerConsole.AddNewEntry($"> {packetObj.Message}");
         }
 
         /// <summary>
@@ -74,6 +78,17 @@ namespace Sharpcon.WebSockets
         }
 
         /// <summary>
+        /// OnOpen event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void WebSocket_OnOpen(object sender, System.EventArgs e)
+        {
+            ConnectStatus.SetText("Connected");
+            ServerConsole.Enable();
+        }
+
+        /// <summary>
         /// OnMessage event handler
         /// </summary>
         /// <param name="sender"></param>
@@ -85,7 +100,7 @@ namespace Sharpcon.WebSockets
             if (packet.Identifier == -1 || string.IsNullOrEmpty(packet.Message))
                 return;
 
-            Console.AddNewEntry(packet.Message);
+            ServerConsole.AddNewEntry(packet.Message);
         }
 
         /// <summary>
@@ -95,7 +110,18 @@ namespace Sharpcon.WebSockets
         /// <param name="e"></param>
         private static void WebSocket_OnError(object sender, ErrorEventArgs e)
         {
-            MessageBox.Show(e.Message);
+            MessageBox.Show($"An error occurred:\n\n{e.Message}");
+        }
+
+        /// <summary>
+        /// OnClose event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void WebSocket_OnClose(object sender, CloseEventArgs e)
+        {
+            ConnectStatus.SetText("Disconnected");
+            ServerConsole.Disable();
         }
     }
 }
