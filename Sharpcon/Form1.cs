@@ -1,8 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
-using Sharpcon.WebSockets;
 using Sharpcon.Interface;
+using Sharpcon.WebSockets;
+using Sharpcon.WebSockets.CustomPackets;
+
+using Newtonsoft.Json;
 
 namespace Sharpcon
 {
@@ -34,6 +39,8 @@ namespace Sharpcon
             textBoxAddress.Text = settings.ServerAddress;
             textBoxPort.Text = settings.ServerPort;
             textBoxPassword.Text = settings.ServerPassword;
+
+            ServerConsole.Disable();
         }
 
         /// <summary>
@@ -54,6 +61,7 @@ namespace Sharpcon
         private void buttonSave_Click(object sender, EventArgs e)
         {
             Settings.Write(new Settings(textBoxAddress.Text, textBoxPort.Text, textBoxPassword.Text));
+            settings = Settings.Read();
         }
 
         /// <summary>
@@ -125,7 +133,7 @@ namespace Sharpcon
         /// <param name="e"></param>
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            Interface.Console.Clear();
+            ServerConsole.Clear();
         }
     }
 }

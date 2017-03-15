@@ -53,14 +53,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interface\Console.cs" />
+    <Compile Include="Interface\ServerConsole.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interface\Status.cs" />
+    <Compile Include="Interface\ConnectStatus.cs" />
+    <Compile Include="WebSockets\CustomPackets\Player.cs" />
     <Compile Include="WebSockets\Packet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
